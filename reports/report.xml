@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+        <record id="letter_report1" model="ir.actions.report">
+            <field name="model">letters.guarantee</field>
+            <field name="name">Print Report </field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">letters_guarantee.report_letter</field>
+            <field name="report_file">letters_guarantee.report_letter</field>
+            <field name="binding_model_id" ref="model_letters_guarantee"/>
+            <field name="binding_type">report</field>
+
+        </record>
+
+       <record id="letter_report_wizard_act" model="ir.actions.report">
+            <field name="model">letter.guarantee.wizard</field>
+            <field name="name">Print Report </field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">letters_guarantee.report_letter_wizard</field>
+            <field name="report_file">letters_guarantee.report_letter_wizard</field>
+            <field name="binding_model_id" ref="model_letter_guarantee_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="letter_report_wizard_act_different" model="ir.actions.report">
+            <field name="model">letter.guarantee.wizard.diff</field>
+            <field name="name">Print Report </field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">letters_guarantee.report_letter_wizard_different_pages</field>
+            <field name="report_file">letters_guarantee.report_letter_wizard_different_pages</field>
+            <field name="binding_model_id" ref="model_letter_guarantee_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+
+
+
+        <template id="report_letter_wizard_different_pages">
+
+              <t t-call="web.html_container">
+               <t t-foreach="letters" t-as="line">
+                       <t t-call="web.external_layout">
+
+                          <br/>
+
+                          <br/>
+                          <br/>
+                   <div>
+
+                       <h2> Reference Number <span t-esc="line['ref']" /></h2>
+
+
+                   </div>
+
+                       <!--General Information -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="4">General Information</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Responsible</td>
+                                <td>
+                                    <span t-esc="line['responsible_id'][1]"/>
+                                </td>
+
+
+                                <td>Release data</td>
+                                <td>
+                                    <span t-esc="line['release_data']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number</td>
+                                  <td>
+                                    <span t-esc="line['number_phone']"/>
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Table Letter Information -->
+                    <table class="table" style="width: 100%;">
+                        <thead>
+                                <th  colspan="20" style="width=100%;">Letter Information</th>
+
+
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Phone Number</td>
+
+                                <td>
+                                    <span t-esc="line['number_phone']"/>
+                                </td>
+
+
+                                <td>Number of Letters</td>
+
+                                <td>
+                                    <span t-esc="line['number_Letter']"/>
+                                </td>
+
+                                <td>Type  of Letter</td>
+                                <td>
+                                    <span t-esc="line['letter_type']"/>
+                                </td>
+
+                                <td>Bank Account</td>
+
+                                <td>
+                                    <span t-esc="line['bank_account'][1]"/>
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Other Information-->
+                    <table class="table" style="width: 100%;">
+                        <thead>
+                                <th  colspan="14" style="width=100%;">Other Information</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Expire Data</td>
+                                <td>
+                                    <span t-esc="line['expiry_data']"/>
+                                </td>
+                                <t t-if="line['renewal_data1']">
+                                    <td>Renewal Data1</td>
+                                    <td>
+                                        <span t-esc="line['renewal_data1']"/>
+                                    </td>
+                                </t>
+                                <t t-if="line['renewal_data2']">
+                                    <td>Renewal Data2</td>
+                                    <td>
+                                        <span t-esc="line['renewal_data2']"/>
+                                    </td>
+                                </t>
+                                  <t t-if="line['renewal_data3']">
+                                    <td>Renewal Data3</td>
+                                    <td>
+                                        <span t-esc="line['renewal_data3']"/>
+                                    </td>
+                                </t>
+
+
+                                  <t t-if="line['renewal_data4']">
+                                    <td>Renewal Data4</td>
+                                    <td>
+                                        <span t-esc="line['renewal_data4']"/>
+                                    </td>
+                                </t>
+
+
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                  </t>
+              </t>
+            </t>
+
+
+
+    </template>
+
+
+
+        <template id="report_letter_wizard">
+
+               <t t-call="web.basic_layout">
+               <t t-foreach="letters" t-as="line">
+
+
+                          <br/>
+
+                          <br/>
+                          <br/>
+                   <div>
+
+                       <h2> Reference Number <span t-esc="line['ref']" /></h2>
+
+
+                   </div>
+
+                       <!--General Information -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="4">General Information</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Responsible</td>
+                                <td>
+                                    <span t-esc="line['responsible_id'][1]"/>
+                                </td>
+
+
+                                <td>Release data</td>
+                                <td>
+                                    <span t-esc="line['release_data']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number</td>
+                                  <td>
+                                    <span t-esc="line['number_phone']"/>
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Table Letter Information -->
+                    <table class="table" style="width: 100%;">
+                        <thead>
+                                <th  colspan="20" style="width=100%;">Letter Information</th>
+
+
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Phone Number</td>
+
+                                <td>
+                                    <span t-esc="line['number_phone']"/>
+                                </td>
+
+
+                                <td>Number of Letters</td>
+
+                                <td>
+                                    <span t-esc="line['number_Letter']"/>
+                                </td>
+
+                                <td>Type  of Letter</td>
+                                <td>
+                                    <span t-esc="line['letter_type']"/>
+                                </td>
+
+                                <td>Bank Account</td>
+
+                                <td>
+                                    <span t-esc="line['bank_account'][1]"/>
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Other Information-->
+                    <table class="table" style="width: 100%;">
+                        <thead>
+                                <th  colspan="14" style="width=100%;">Other Information</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Expire Data</td>
+                                <td>
+                                    <span t-esc="line['expiry_data']"/>
+                                </td>
+                                <t t-if="line['renewal_data1']">
+                                    <td>Renewal Data1</td>
+                                    <td>
+                                        <span t-esc="line['renewal_data1']"/>
+                                    </td>
+                                </t>
+                                <t t-if="line['renewal_data2']">
+                                    <td>Renewal Data2</td>
+                                    <td>
+                                        <span t-esc="line['renewal_data2']"/>
+                                    </td>
+                                </t>
+                                  <t t-if="line['renewal_data3']">
+                                    <td>Renewal Data3</td>
+                                    <td>
+                                        <span t-esc="line['renewal_data3']"/>
+                                    </td>
+                                </t>
+
+
+                                  <t t-if="line['renewal_data4']">
+                                    <td>Renewal Data4</td>
+                                    <td>
+                                        <span t-esc="line['renewal_data4']"/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                  </t>
+              </t>
+
+
+
+
+
+    </template>
+
+       <!-- Template only record -->
+        <template id="report_letter">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+
+                    <!--General Information -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="4">General Information</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Responsible</td>
+                                <td>
+                                    <span t-field="doc.responsible_id"/>
+                                </td>
+
+
+                                <td>Release data</td>
+                                <td>
+                                    <span t-field="doc.release_data"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number</td>
+                                  <td>
+                                    <span t-field="doc.number_phone"/>
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Table Letter Information -->
+                    <table class="table" style="width: 100%;">
+                        <thead>
+                                <th  colspan="20" style="width=100%;">Letter Information</th>
+
+
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Phone Number</td>
+
+                                <td>
+                                    <span t-field="doc.number_phone"/>
+                                </td>
+
+
+                                <td>Number of Letters</td>
+
+                                <td>
+                                    <span t-field="doc.number_Letter"/>
+                                </td>
+
+                                <td>Type  of Letter</td>
+                                <td>
+                                    <span t-field="doc.letter_type"/>
+                                </td>
+
+                                <td>Bank Account</td>
+
+                                <td>
+                                    <span t-field="doc.bank_account"/>
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Other Information-->
+                    <table class="table" style="width: 100%;">
+                        <thead>
+                                <th  colspan="14" style="width=100%;">Other Information</th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Expire Data</td>
+                                <td>
+                                    <span t-field="doc.expiry_data"/>
+                                </td>
+                                <t t-if="doc.renewal_data1">
+                                    <td>Renewal Data1</td>
+                                    <td>
+                                        <span t-field="doc.renewal_data1"/>
+                                    </td>
+                                </t>
+                                <t t-if="doc.renewal_data2">
+                                    <td>Renewal Data2</td>
+                                    <td>
+                                        <span t-field="doc.renewal_data2"/>
+                                    </td>
+                                </t>
+                                  <t t-if="doc.renewal_data3">
+                                    <td>Renewal Data3</td>
+                                    <td>
+                                        <span t-field="doc.renewal_data3"/>
+                                    </td>
+                                </t>
+
+                                  <t t-if="doc.renewal_data3">
+                                    <td>Renewal Data2</td>
+                                    <td>
+                                        <span t-field="doc.renewal_data3"/>
+                                    </td>
+                                </t>
+
+                                  <t t-if="doc.renewal_data4">
+                                    <td>Renewal Data2</td>
+                                    <td>
+                                        <span t-field="doc.renewal_data4"/>
+                                    </td>
+                                </t>
+
+
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

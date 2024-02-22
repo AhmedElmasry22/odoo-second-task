@@ -1,0 +1,37 @@
+
+<odoo>
+       <record id="form_report_action_diff" model="ir.ui.view">
+        <field name="name">Wizard different Letter Difi</field>
+        <field name="model">letter.guarantee.wizard.diff</field>
+        <field name="arch" type="xml">
+            <form string="Print Letter Reports">
+                <group>
+                <group>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </group>
+
+                 <group>
+                    <field name="responsible_id"/>
+                    <field name="bank_account"/>
+
+                </group>
+                </group>
+                <footer>
+                   <button name="action_print_report" string="Print" type="object"/>
+                   <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+      <record id="action_wizard_different" model="ir.actions.act_window">
+         <field name="name">Wizard Actions Letter Different</field>
+         <field name="res_model">letter.guarantee.wizard.diff</field>
+         <field name="view_mode">form</field>
+         <field name="view_id" ref="form_report_action_diff"/>
+         <field name="target">new</field>
+    </record>
+
+    </odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<record id="sequance_view_id" model="ir.ui.view">
+        <field name="name">Sequence View</field>
+        <field name="model">letters.sequence.configuration</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <field name="prefix"/>
+
+            </form>
+        </field>
+    </record>
+
+      <record model="ir.actions.act_window" id="sequence_act">
+      <field name="name">Letters Sequence Configuration</field>
+      <field name="res_model">letters.sequence.configuration</field>
+      <field name="view_mode">form</field>
+    </record>
+    <menuitem name="Configuration" id="letter_sub_menu_configuration" parent="letter_menu"  action="sequence_act" />
+
+
+</odoo>

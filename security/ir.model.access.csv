@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_letters,letters_model,model_letters_guarantee,base.group_user,1,1,1,1
+access_letters_report,letters_model_report,model_letter_guarantee_wizard,base.group_user,1,1,1,1
+
+access_letters_report_diff,letters_model_report_diff,model_letter_guarantee_wizard_diff,base.group_user,1,1,1,1
+access_letters_sequence,letters_model_sequence,model_letters_sequence_configuration,base.group_user,1,1,1,1

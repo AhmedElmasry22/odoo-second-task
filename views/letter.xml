@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="letters_form">
+      <field name="name">letters.form</field>
+      <field name="model">letters.guarantee</field>
+      <field name="arch" type="xml">
+        <form>
+
+             <header>
+               <button name="action_draft"  string="Set To Draft" invisible="(state not in ['CANCELED','CONFIRMED'])" type="object" />
+               <button name="action_posted"  string="POSTED" invisible="(state not in ['CONFIRMED'])" type="object" />
+
+                 <button name="action_confirmed"  string="CONFIRM" invisible="state!='DRAFT'" type="object" />
+                 <button name="action_confirmed"  string="Set To CONFIRM" invisible="state!='POSTED'" type="object" />
+
+                 <button name="action_returned"  string="RETURNED" invisible="state!='POSTED'" type="object" />
+                 <button name="action_cancel"  string="CANCEL" invisible="state!='DRAFT'" type="object" />
+
+                <field name="state" widget="statusbar" />
+
+            </header>
+             <sheet>
+
+
+               <div class="oe_title">
+                   <label for="ref"/>
+                 <h1>
+
+                     <field name="ref"/>
+                 </h1>
+                 </div>
+
+               <group>
+               <group>
+                    <field name="responsible_id" readonly="(state != 'DRAFT')"/>
+                    <field name="number_Letter"  readonly="(state != 'DRAFT')"/>
+                    <field name="number_phone" readonly="(state != 'DRAFT')" />
+
+
+                    <field name="letter_type" readonly="(state != 'DRAFT')"/>
+                    <field name="bank_account" readonly="(state != 'DRAFT')"/>
+                    <field name="amount"   readonly="(state != 'DRAFT')"/>
+                    <field name="merge_percent" readonly="(state != 'DRAFT')"/>
+                    <field name="merge_amount" readonly="(state != 'DRAFT')"/>
+               </group>
+
+                <group>
+                   <field name="release_data" readonly="(id != False)"/>
+                    <field name="expiry_data" readonly="(id != False)"/>
+                    <field name="expiry_status" readonly="1" force_save="1" />
+                    <field name="number_edit" invisible="True"/>
+                    <field name="renewal_data1"   readonly="number_edit!= 1" invisible="number_edit &lt; 1"/>
+                    <field name="renewal_data2"  readonly="number_edit!= 2" invisible="number_edit &lt; 2"/>
+                    <field name="renewal_data3"   readonly="number_edit!= 3"  invisible="number_edit &lt; 3"/>
+                    <field name="renewal_data4"  readonly="number_edit!= 4" invisible="number_edit &lt; 4"/>
+
+
+                </group>
+         </group>
+     </sheet>
+        </form>
+
+      </field>
+    </record>
+       <!-- TreeView -->
+    <record model="ir.ui.view" id="letters_tree">
+      <field name="name">letters.guarantee.tree</field>
+      <field name="model">letters.guarantee</field>
+      <field name="arch" type="xml">
+        <tree>
+
+                    <field name="responsible_id"   />
+                    <field name="number_Letter"  />
+                    <field name="letter_type" />
+                    <field name="bank_account" />
+                    <field name="amount" />
+                    <field name="merge_percent" />
+                    <field name="merge_amount" />
+
+                   <field name="release_data" />
+                    <field name="expiry_data" />
+                    <field name="expiry_status" />
+                    <field name="number_edit"/>
+                    <field name="renewal_data1"  optional="hide" />
+                    <field name="renewal_data2" optional="hide" />
+                    <field name="renewal_data3" optional="hide" />
+                    <field name="renewal_data4" optional="hide" />
+
+        </tree>
+
+      </field>
+    </record>
+
+
+     <!-- Action Automation Statues -->
+    <record model="ir.cron" id="statues_automation">
+        <field name="name">Letter Check Expire Date</field>
+        <field name="model_id" ref="model_letters_guarantee"/>
+        <field name="state">code</field>
+        <field name="code">model.action_automation_statues()</field>
+
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+
+    </record>
+
+
+
+
+    <!-- Action Window -->
+
+   <record model="ir.actions.act_window" id="guarantee_act">
+      <field name="name">Letters Guarantee Action</field>
+      <field name="res_model">letters.guarantee</field>
+      <field name="view_mode">tree,form</field>
+          <field name="help" type="html">
+             <p class="o_view_nocontent_smiling_face">
+            Create First Record
+            </p>
+
+    </field>
+    </record>
+
+
+    <menuitem name="Letters Of Guarantee " id="letter_menu" />
+    <menuitem name="Letters" id="letter_sub_menu" parent="letter_menu"  action="guarantee_act" />
+    <menuitem name="Reports" id="letter_sub_reports" parent="letter_menu" />
+
+
+
+    <menuitem name="Print All Letters" id="menu_print_all_letter" parent="letter_sub_reports" action="action_report_letter_wizard"/>
+    <menuitem name="Print All With Different" id="menu_print_all_letter_diff" parent="letter_sub_reports" action="action_wizard_different"/>
+
+
+</odoo>
